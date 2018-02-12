@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class RemoveBusFromRoute implements Command {
+public class RemoveBusFromRouteCommand implements Command {
     private Service service = Service.getInstance();
 
     @Override

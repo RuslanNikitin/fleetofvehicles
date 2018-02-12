@@ -72,6 +72,10 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <form align="center" method="POST" action="controller">
+                <input type="hidden" name="command" value="addNewBus"/>
+                <button type="submit"><fmt:message key="ADD_NEW_BUS"/></button>
+            </form>
         </div>
     </div>
 </div>

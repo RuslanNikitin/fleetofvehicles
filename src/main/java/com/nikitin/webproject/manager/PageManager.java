@@ -15,6 +15,7 @@ public class PageManager {
     public static final String ROUTE_NUMBER = "ROUTE_NUMBER";
     public static final String DRIVERS_PAGE = "DRIVERS_PAGE";
     public static final String CLIENT_PAGE = "CLIENT_PAGE";
+    public static final String ADD_BUS_PAGE = "ADD_BUS_PAGE";
 
     public static PageManager getInstance(){
         if (instance == null){

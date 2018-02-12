@@ -22,7 +22,8 @@ class RequestHelper {
         commands.put("appointDriverToBus", new AppointDriverToBusCommand());
         commands.put("setDriverToFree", new SetDriverToFreeCommand());
         commands.put("agreeWithAppointment", new AgreeWithAppointmentCommand());
-        commands.put("removeBusFromRoute", new RemoveBusFromRoute());
+        commands.put("removeBusFromRoute", new RemoveBusFromRouteCommand());
+        commands.put("addNewBus", new AddNewBusCommand());
     }
 
     Command getCommand(HttpServletRequest request){
