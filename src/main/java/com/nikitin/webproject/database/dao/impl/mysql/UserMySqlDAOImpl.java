@@ -44,7 +44,7 @@ public class UserMySqlDAOImpl implements UserDAO {
 
         int initialBusId = 0;  // new user does not bonded with buses
 
-        String sql = "INSERT INTO USERS (?, ?, ?, ?, ?) VALUES (BUS_ID, LOGIN, PASSWORD, TYPE, STATUS)";
+        String sql = "INSERT INTO USERS (BUS_ID, LOGIN, PASSWORD, TYPE, STATUS) VALUES (?, ?, ?, ?, ?)";
         boolean rowUpdated = false;
 
         try (Connection connection = MySqlConnectionSupplier.getConnection();
@@ -109,7 +109,6 @@ public class UserMySqlDAOImpl implements UserDAO {
 
     @Override
     public synchronized List<User> getFreeDrivers() {
-        ;
         String sql = "SELECT * FROM USERS WHERE BUS_ID = 0 AND TYPE = \'DRIVER\'";
         return getUsersByQuery(sql);
     }

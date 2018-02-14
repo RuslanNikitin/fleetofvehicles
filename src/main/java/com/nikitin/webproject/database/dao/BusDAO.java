@@ -22,4 +22,6 @@ public interface BusDAO {
     boolean updateBusRouteId(Bus bus, int routeId);
 
     boolean updateBusStatus(Bus bus, Status status);
+
+    int addBus(Bus bus);
 }

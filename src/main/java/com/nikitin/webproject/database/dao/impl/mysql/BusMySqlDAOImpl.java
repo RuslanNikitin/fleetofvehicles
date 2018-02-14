@@ -150,6 +150,37 @@ public class BusMySqlDAOImpl implements BusDAO {
         return rowUpdated;
     }
 
+    @Override
+    public synchronized int addBus(Bus bus) {
+        int id = 0;
+
+        if (bus == null) {
+            return 0;
+        }
+
+        String sql = "INSERT INTO BUSES (ROUTE_ID, STATUS) VALUES (?, ?)";
+
+        try (Connection connection = MySqlConnectionSupplier.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, bus.getRouteId());
+            ps.setString(2, bus.getStatus().toString());
+
+            ps.executeUpdate();
+
+            ResultSet resultSet = ps.getGeneratedKeys();
+
+            if(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.error("ERROR: trying to add new bus: {" + bus + "}", e);
+        }
+
+        return id;
+    }
+
     private synchronized List<Bus> getBusesByQuery(String sql) {
         List<Bus> list = null;
 

@@ -240,6 +240,10 @@ public class Service {
         return userDAO.getUserById(id);
     }
 
+    public int addNewBus(Bus bus) {
+        return busDAO.addBus(bus);
+    }
+
 }
 
 

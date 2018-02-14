@@ -42,6 +42,8 @@ public class AgreeWithAppointmentCommand implements Command {
         request.getSession().setAttribute("busContent", busContent);
         request.getSession().setAttribute("route", route);
 
-        return PageManager.getInstance().getProperty(PageManager.CLIENT_PAGE);
+        page = PageManager.getInstance().getProperty(PageManager.CLIENT_PAGE);
+
+        return page;
     }
 }

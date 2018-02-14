@@ -24,6 +24,7 @@ class RequestHelper {
         commands.put("agreeWithAppointment", new AgreeWithAppointmentCommand());
         commands.put("removeBusFromRoute", new RemoveBusFromRouteCommand());
         commands.put("addNewBus", new AddNewBusCommand());
+        commands.put("addBusToDB", new AddBusToDBCommand());
     }
 
     Command getCommand(HttpServletRequest request){
