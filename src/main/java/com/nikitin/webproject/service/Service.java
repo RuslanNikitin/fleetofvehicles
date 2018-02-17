@@ -241,7 +241,11 @@ public class Service {
     }
 
     public int addNewBus(Bus bus) {
-        return busDAO.addBus(bus);
+        return busDAO.addBus();
+    }
+
+    public boolean addBusContent(BusContent busContent, int busID, String lang) {
+        return busContentDAO.addBusContent(busContent, busID, lang);
     }
 
 }

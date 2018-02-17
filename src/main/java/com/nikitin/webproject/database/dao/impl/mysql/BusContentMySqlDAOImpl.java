@@ -71,6 +71,41 @@ public class BusContentMySqlDAOImpl implements BusContentDAO {
 
         return busContent;
     }
+
+    @Override
+    public boolean addBusContent(BusContent busContent, int busID, String lang) {
+        if (busContent == null || busID == 0 || lang == null || lang.isEmpty()) {
+            return false;
+        }
+
+        int langID = 0;
+        if (lang.equals("EN")) {
+            langID = 1;
+        } else if (lang.equals("RU")) {
+            langID = 2;
+        }
+
+        String sql = "INSERT INTO BUS_CONTENTS (BUS_ID, LANG_ID, NUMBER, BRAND, MODEL, COLOR) VALUES (?, ?, ?, ?, ?, ?)";
+        boolean rowUpdated = false;
+
+        try (Connection connection = MySqlConnectionSupplier.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, busID);
+            ps.setInt(2, langID);
+            ps.setString(3, busContent.getNumber());
+            ps.setString(4, busContent.getBrand());
+            ps.setString(5, busContent.getModel());
+            ps.setString(6, busContent.getColor());
+
+            rowUpdated = ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            LOGGER.error("ERROR: trying to add bus content: {" + busContent + "} with bus ID: {" + busID + "}" + "and lang: {" + lang + "}", e);
+        }
+
+        return rowUpdated;
+    }
 }
 
 

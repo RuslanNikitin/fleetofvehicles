@@ -66,31 +66,6 @@ public class RouteMySqlDAOImpl implements RouteDAO {
     }
 
     @Override
-    public synchronized Route getRouteByNumber(String number) {
-        if(number == null || number.isEmpty()) {
-            return null;
-        }
-
-        String sql = "SELECT * FROM ROUTES WHERE NUMBER = ?";
-        Route route = null;
-
-        try(Connection connection = MySqlConnectionSupplier.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, number);
-
-            try(ResultSet resultSet = ps.executeQuery()) {
-                route = getRouteFromResultSet(resultSet);
-            }
-
-        } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to get route from DB by number {" + number + "}", e);
-        }
-
-        return route;
-    }
-
-    @Override
     public synchronized Route getRouteById(int id) {
         String sql = "SELECT * FROM ROUTES WHERE ID = ?";
         Route route = null;

@@ -26,7 +26,7 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <br>
-            <h4 align="center">new bus</h4>
+            <h4 align="center"><fmt:message key="NEW_BUS"/></h4>
             <br>
 
             <form align="center"  method="POST" action="controller">
@@ -34,56 +34,56 @@
                 <table class="table table-striped">
                     <thead>
                     <tr align="center">
-                        <th scope="col">parameter</th>
-                        <th scope="col">english</th>
-                        <th scope="col">russian</th>
+                        <th scope="col"><fmt:message key="PARAMETER"/></th>
+                        <th scope="col"><fmt:message key="EN_DATA"/></th>
+                        <th scope="col"><fmt:message key="RU_DATA"/></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr align="center">
                         <td>
-                            brand
+                            <fmt:message key="BRAND"/>
                         </td>
                         <td>
-                            <input type="text" name="brandEN" value="">
+                            <input type="text" name="brandEN" value="${brandEN}">
                         </td>
                         <td>
-                            <input type="text" name="brandRU" value="">
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>
-                            model
-                        </td>
-                        <td>
-                            <input type="text" name="modelEN" value="">
-                        </td>
-                        <td>
-                            <input type="text" name="modelRU" value="">
+                            <input type="text" name="brandRU" value="${brandRU}">
                         </td>
                     </tr>
                     <tr align="center">
                         <td>
-                            color
+                            <fmt:message key="MODEL"/>
                         </td>
                         <td>
-                            <input type="text" name="colorEN" value="">
+                            <input type="text" name="modelEN" value="${modelEN}">
                         </td>
                         <td>
-                            <input type="text" name="colorRU" value="">
+                            <input type="text" name="modelRU" value="${modelRU}">
                         </td>
                     </tr>
                     <tr align="center">
                         <td>
-                            number
+                            <fmt:message key="COLOR"/>
+                        </td>
+                        <td>
+                            <input type="text" name="colorEN" value="${colorEN}">
+                        </td>
+                        <td>
+                            <input type="text" name="colorRU" value="${colorRU}">
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>
+                            <fmt:message key="NUMBER"/>
                         </td>
                         <td colspan="2">
-                            <input type="text" name="busNumber" value="">
+                            <input type="text" name="busNumber" value="${busNumber}">
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <input type="submit" value="<fmt:message key="ENTER"/>">
+                <input type="submit" value="<fmt:message key="CONFIRM"/>">
             </form>
         </div>
     </div>

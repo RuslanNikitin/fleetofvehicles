@@ -6,6 +6,7 @@ import com.nikitin.webproject.database.entity.Language;
 import com.nikitin.webproject.database.entity.Route;
 import com.nikitin.webproject.database.util.Status;
 import com.nikitin.webproject.manager.PageManager;
+import com.nikitin.webproject.manager.SessionManager;
 import com.nikitin.webproject.service.BusWithContent;
 import com.nikitin.webproject.service.RouteNumberMenu;
 import com.nikitin.webproject.service.Service;
@@ -21,30 +22,29 @@ public class AppointBusToRouteCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = (String) request.getSession().getAttribute("currentPage");
+        String page = (String) request.getSession().getAttribute(SessionManager.getInstance().getProperty(SessionManager.CURRENT_PAGE));
 
-        int busId = Integer.parseInt(request.getParameter("selectedBus"));
+        int busId = Integer.parseInt(request.getParameter(SessionManager.getInstance().getProperty(SessionManager.SELECTED_BUS)));
 
         Bus bus = service.getBusById(busId);
 
-        Route route = (Route) request.getSession().getAttribute("currentRoute");
+        Route route = (Route) request.getSession().getAttribute(SessionManager.getInstance().getProperty(SessionManager.CURRENT_ROUTE));
 
         service.updateBusStatus(bus, Status.AWAITING);
-
         service.updateBusRouteId(bus, route.getId());
 
-        Language language = service.getLang(request.getParameter("lang"));
+        Language language = service.getLang(request.getParameter(SessionManager.getInstance().getProperty(SessionManager.LANG)));
 
         // EN - default language
         if(language == null) {
-            language = service.getLang("EN");
+            language = service.getLang(SessionManager.getInstance().getProperty(SessionManager.EN_LANG));
         }
 
         if(page != null && page.equals(PageManager.getInstance().getProperty(PageManager.ROUTE_NUMBER))) {
             List<RouteNumberMenu> routeNumberMenu = service.refreshRouteNumberMenu(route, language);
-            request.getSession().setAttribute("routeNumberMenu", routeNumberMenu);
+            request.getSession().setAttribute(SessionManager.getInstance().getProperty(SessionManager.ROUTE_NUMBER_MENU), routeNumberMenu);
             List<BusWithContent> freeBuses = service.freeBuses(language);
-            request.getSession().setAttribute("freeBusesList", freeBuses);
+            request.getSession().setAttribute(SessionManager.getInstance().getProperty(SessionManager.FREE_BUSES_LIST), freeBuses);
         }
 
         return page;

@@ -7,6 +7,7 @@ import com.nikitin.webproject.database.entity.Route;
 import com.nikitin.webproject.database.entity.User;
 import com.nikitin.webproject.database.util.Status;
 import com.nikitin.webproject.database.util.UserType;
+import com.nikitin.webproject.manager.SessionManager;
 import com.nikitin.webproject.service.RouteNumberMenu;
 import com.nikitin.webproject.service.Service;
 
@@ -21,34 +22,32 @@ public class RemoveBusFromRouteCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = (String) request.getSession().getAttribute("currentPage");
-
-        Language language = (Language) request.getSession().getAttribute("currentLang");
+        int zeroID = 0;
+        String page = (String) request.getSession().getAttribute(SessionManager.getInstance().getProperty(SessionManager.CURRENT_PAGE));
+        Language language = (Language) request.getSession().getAttribute(SessionManager.getInstance().getProperty(SessionManager.CURRENT_LANG));
 
         // EN - default language
         if (language == null) {
-            language = service.getLang("EN");
+            language = service.getLang(SessionManager.getInstance().getProperty(SessionManager.EN_LANG));
         }
 
-        int busId = Integer.parseInt(request.getParameter("busId"));
+        int busId = Integer.parseInt(request.getParameter(SessionManager.getInstance().getProperty(SessionManager.BUS_ID)));
         Bus bus = service.getBusById(busId);
 
-        Route route = (Route) request.getSession().getAttribute("currentRoute");
+        Route route = (Route) request.getSession().getAttribute(SessionManager.getInstance().getProperty(SessionManager.CURRENT_ROUTE));
 
-        service.updateBusRouteId(bus, 0);
+        service.updateBusRouteId(bus, zeroID);
         service.updateBusStatus(bus, Status.AWAITING);
 
         User driver = service.getUserByBusId(bus);
 
         if(driver != null) {
             service.updateUserStatus(driver, Status.AWAITING);
-            service.updateDriverByBusId(driver.getId(), 0);
+            service.updateDriverByBusId(driver.getId(), zeroID);
         }
 
         List<RouteNumberMenu> routeNumberMenu = service.refreshRouteNumberMenu(route, language);
-
-        request.getSession().setAttribute("routeNumberMenu", routeNumberMenu);
-        request.getSession().setAttribute("currentPage", page);
+        request.getSession().setAttribute(SessionManager.getInstance().getProperty(SessionManager.ROUTE_NUMBER_MENU), routeNumberMenu);
 
         return page;
     }

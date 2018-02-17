@@ -37,35 +37,6 @@ public class UserMySqlDAOImpl implements UserDAO {
     // Bill Pugh Singleton Implementation ---end---
 
     @Override
-    public synchronized boolean addNewDriver(String login, String password) {
-        if (login == null || login.isEmpty() || password == null || password.isEmpty()) {
-            return false;
-        }
-
-        int initialBusId = 0;  // new user does not bonded with buses
-
-        String sql = "INSERT INTO USERS (BUS_ID, LOGIN, PASSWORD, TYPE, STATUS) VALUES (?, ?, ?, ?, ?)";
-        boolean rowUpdated = false;
-
-        try (Connection connection = MySqlConnectionSupplier.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setInt(1, initialBusId);
-            ps.setString(2, login);
-            ps.setString(3, password);
-            ps.setString(4, UserType.DRIVER.toString());
-            ps.setString(5, Status.AWAITING.toString());
-
-            rowUpdated = ps.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to add new user with login: {" + login + "} and pass: {" + password + "}", e);
-        }
-
-        return rowUpdated;
-    }
-
-    @Override
     public synchronized User getUserByLoginAndPass(String login, String pass) {
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
             return null;
@@ -147,32 +118,6 @@ public class UserMySqlDAOImpl implements UserDAO {
         }
 
         return user;
-    }
-
-    @Override
-    public List<User> getUsersByStatus(Status status) {
-        if (status == null) {
-            return null;
-        }
-
-        List<User> list = null;
-
-        String sql = "SELECT * FROM USERS WHERE STATUS = ?";
-
-        try (Connection connection = MySqlConnectionSupplier.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, status.toString());
-
-            try (ResultSet resultSet = ps.executeQuery()) {
-                list = getUsersFromResultSet(resultSet);
-            }
-
-        } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to get users from DB by status: {" + status + "}", e);
-        }
-
-        return list;
     }
 
     @Override

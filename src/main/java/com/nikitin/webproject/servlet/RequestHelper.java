@@ -33,7 +33,7 @@ class RequestHelper {
 
         Command command = commands.get(action);
         if (command == null){
-            command = new NoCommand();
+            command = new LogoutCommand();
         }
         return command;
     }

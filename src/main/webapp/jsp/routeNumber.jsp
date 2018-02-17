@@ -69,7 +69,7 @@
                     </c:forEach>
                 </select>
                 <input type="hidden" name="command" value="appointBusToRoute"/>
-                <button type="submit">appoint</button>
+                <button type="submit"><fmt:message key="APPOINT"/></button>
             </form>
             </c:if>
         </div>

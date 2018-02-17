@@ -1,6 +1,7 @@
 package com.nikitin.webproject.command.impl;
 
 import com.nikitin.webproject.command.Command;
+import com.nikitin.webproject.database.entity.Bus;
 import com.nikitin.webproject.database.entity.Language;
 import com.nikitin.webproject.database.entity.User;
 import com.nikitin.webproject.database.util.Status;
@@ -32,8 +33,13 @@ public class SetDriverToFreeCommand implements Command {
         }
 
         User driver = service.getUserByUserId(driverId);
+        Bus bus = service.getBusById(driver.getBusId());
+
         service.updateUserStatus(driver, Status.AWAITING);
+        service.updateBusStatus(bus, Status.AWAITING);
+
         service.updateDriverByBusId(driverId, 0);
+        service.updateBusRouteId(bus, 0);
 
         User user = (User) request.getSession().getAttribute("user");
 

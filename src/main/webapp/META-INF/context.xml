@@ -6,7 +6,7 @@
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/fleet_of_vehicles_db?useSSL=false"
               username="root"
-              password=""
+              password="root"
 
               maxIdle="20"
               minIdle="5"/>

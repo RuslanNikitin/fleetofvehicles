@@ -6,4 +6,5 @@ import com.nikitin.webproject.database.entity.Language;
 
 public interface BusContentDAO {
     BusContent getBusContent(Bus bus, Language language);
+    boolean addBusContent(BusContent busContent, int busID, String lang);
 }

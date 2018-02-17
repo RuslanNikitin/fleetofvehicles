@@ -77,32 +77,6 @@ public class BusMySqlDAOImpl implements BusDAO {
     }
 
     @Override
-    public synchronized List<Bus> getBusesByStatus(Status status) {
-        if (status == null) {
-            return null;
-        }
-
-        List<Bus> list = null;
-
-        String sql = "SELECT * FROM BUSES WHERE STATUS = ?";
-
-        try (Connection connection = MySqlConnectionSupplier.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, status.toString());
-
-            try (ResultSet resultSet = ps.executeQuery()) {
-                list = getBusesFromResultSet(resultSet);
-            }
-
-        } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to get buses from DB by status: {" + status + "}", e);
-        }
-
-        return list;
-    }
-
-    @Override
     public synchronized boolean updateBusRouteId(Bus bus, int routeId) {
         if (bus == null) {
             return false;
@@ -151,20 +125,18 @@ public class BusMySqlDAOImpl implements BusDAO {
     }
 
     @Override
-    public synchronized int addBus(Bus bus) {
+    public synchronized int addBus() {
         int id = 0;
-
-        if (bus == null) {
-            return 0;
-        }
+        int routeID = 0;
+        Status status = Status.AWAITING;
 
         String sql = "INSERT INTO BUSES (ROUTE_ID, STATUS) VALUES (?, ?)";
 
         try (Connection connection = MySqlConnectionSupplier.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setInt(1, bus.getRouteId());
-            ps.setString(2, bus.getStatus().toString());
+            ps.setInt(1, routeID);
+            ps.setString(2, status.toString());
 
             ps.executeUpdate();
 
@@ -175,7 +147,7 @@ public class BusMySqlDAOImpl implements BusDAO {
             }
 
         } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to add new bus: {" + bus + "}", e);
+            LOGGER.error("ERROR: trying to add new bus to DB", e);
         }
 
         return id;
