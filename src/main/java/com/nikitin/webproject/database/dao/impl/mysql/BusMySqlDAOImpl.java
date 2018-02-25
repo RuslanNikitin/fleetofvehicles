@@ -17,15 +17,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bus Data Access Object implementation for MySQL database.
+ */
 public class BusMySqlDAOImpl implements BusDAO {
     private static final Logger LOGGER = Logger.getLogger(BusMySqlDAOImpl.class);
 
-    // sequence of columns in DB:
+    /**
+     * Sequence of columns in database table:
+     */
     private static final int ID = 1;
     private static final int ROUTE_ID = 2;
     private static final int STATUS = 3;
 
-    // Bill Pugh Singleton Implementation ---start---
+
+    /**
+     * Bill Pugh Singleton Implementation.
+     */
     private BusMySqlDAOImpl() {
     }
 
@@ -36,20 +44,35 @@ public class BusMySqlDAOImpl implements BusDAO {
     public static BusMySqlDAOImpl getInstance() {
         return SingletonHelper.INSTANCE;
     }
-    // Bill Pugh Singleton Implementation ---end---
 
+
+    /**
+     * Method returns all buses from database.
+     * @return list of all buses, List<Bus>.
+     */
     @Override
     public synchronized List<Bus> AllBuses() {
         String sql = "SELECT * FROM BUSES";
         return getBusesByQuery(sql);
     }
 
+
+    /**
+     * Method returns only free (not busy) buses from database.
+     * @return list of all free buses, List<Bus>.
+     */
     @Override
     public synchronized List<Bus> getFreeBuses() {
         String sql = "SELECT * FROM BUSES WHERE ROUTE_ID = 0";
         return getBusesByQuery(sql);
     }
 
+
+    /**
+     * Method returns buses related to specific route.
+     * @param route
+     * @return list buses, List<Bus>.
+     */
     @Override
     public synchronized List<Bus> getBusesByRouteId(Route route) {
         if (route == null) {
@@ -76,6 +99,13 @@ public class BusMySqlDAOImpl implements BusDAO {
         return list;
     }
 
+
+    /**
+     * Method update bus relation to the route in database.
+     * @param bus
+     * @param routeId int.
+     * @return true, if operation successfully done.
+     */
     @Override
     public synchronized boolean updateBusRouteId(Bus bus, int routeId) {
         if (bus == null) {
@@ -100,6 +130,13 @@ public class BusMySqlDAOImpl implements BusDAO {
         return rowUpdated;
     }
 
+
+    /**
+     * Method update bus status in database.
+     * @param bus
+     * @param status
+     * @return true, if operation successfully done.
+     */
     @Override
     public synchronized boolean updateBusStatus(Bus bus, Status status) {
         if (bus == null || status == null) {
@@ -124,6 +161,11 @@ public class BusMySqlDAOImpl implements BusDAO {
         return rowUpdated;
     }
 
+
+    /**
+     * Method add new bus to database.
+     * @return ID of this bus.
+     */
     @Override
     public synchronized int addBus() {
         int id = 0;
@@ -153,6 +195,12 @@ public class BusMySqlDAOImpl implements BusDAO {
         return id;
     }
 
+
+    /**
+     * Method to execute query and return list of buses from database.
+     * @param sql String.
+     * @return list buses, List<Bus>.
+     */
     private synchronized List<Bus> getBusesByQuery(String sql) {
         List<Bus> list = null;
 
@@ -169,6 +217,12 @@ public class BusMySqlDAOImpl implements BusDAO {
         return list;
     }
 
+
+    /**
+     * Method returns bus by ID from database.
+     * @param id int.
+     * @return bus.
+     */
     @Override
     public Bus getBusById(int id) {
         if (id == 0) {
@@ -201,6 +255,12 @@ public class BusMySqlDAOImpl implements BusDAO {
         return bus;
     }
 
+
+    /**
+     * Method to get list of buses from result set.
+     * @param resultSet
+     * @return list buses, List<Bus>.
+     */
     private synchronized List<Bus> getBusesFromResultSet(ResultSet resultSet) {
         List<Bus> list = new ArrayList<>();
 
@@ -226,28 +286,3 @@ public class BusMySqlDAOImpl implements BusDAO {
         return list;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

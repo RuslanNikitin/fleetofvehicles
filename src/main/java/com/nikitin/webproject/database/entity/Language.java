@@ -3,6 +3,9 @@ package com.nikitin.webproject.database.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Language Entity. This class completely describes table in database.
+ */
 public class Language implements Serializable {
     private int id;
     private String code;
@@ -10,6 +13,10 @@ public class Language implements Serializable {
     public Language() {
     }
 
+
+    /**
+     * Builder design pattern implementation.
+     */
     private Language(Builder builder) {
         this.id = builder.id;
         this.code = builder.code;
@@ -34,6 +41,10 @@ public class Language implements Serializable {
         }
     }
 
+
+    /**
+     * Getters and Setters.
+     */
     public int getId() {
         return id;
     }
@@ -50,6 +61,10 @@ public class Language implements Serializable {
         this.code = code;
     }
 
+
+    /**
+     * equals, hashCode and toString.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

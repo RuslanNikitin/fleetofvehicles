@@ -6,6 +6,9 @@ import com.nikitin.webproject.database.util.UserType;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * User Entity. This class completely describes table in database.
+ */
 public class User implements Serializable {
     private int id;
     private int busId;
@@ -18,6 +21,10 @@ public class User implements Serializable {
     public User() {
     }
 
+
+    /**
+     * Builder design pattern implementation.
+     */
     private User(Builder builder) {
         this.id = builder.id;
         this.busId = builder.busId;
@@ -71,6 +78,10 @@ public class User implements Serializable {
         }
     }
 
+
+    /**
+     * Getters and Setters.
+     */
     public int getId() {
         return id;
     }
@@ -119,6 +130,10 @@ public class User implements Serializable {
         this.status = status;
     }
 
+
+    /**
+     * equals, hashCode and toString.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

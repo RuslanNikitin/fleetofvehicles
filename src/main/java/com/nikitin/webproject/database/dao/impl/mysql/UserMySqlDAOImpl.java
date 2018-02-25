@@ -12,10 +12,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * User Data Access Object implementation for MySQL database.
+ */
 public class UserMySqlDAOImpl implements UserDAO {
     private static final Logger LOGGER = Logger.getLogger(UserMySqlDAOImpl.class);
 
-    // sequence of columns in DB:
+    /**
+     * Sequence of columns in database table:
+     */
     private static final int ID = 1;
     private static final int BUS_ID = 2;
     private static final int LOGIN = 3;
@@ -23,7 +28,10 @@ public class UserMySqlDAOImpl implements UserDAO {
     private static final int TYPE = 5;
     private static final int STATUS = 6;
 
-    // Bill Pugh Singleton Implementation ---start---
+
+    /**
+     * Bill Pugh Singleton Implementation.
+     */
     private UserMySqlDAOImpl() {
     }
 
@@ -34,8 +42,14 @@ public class UserMySqlDAOImpl implements UserDAO {
     public static UserMySqlDAOImpl getInstance() {
         return SingletonHelper.INSTANCE;
     }
-    // Bill Pugh Singleton Implementation ---end---
 
+
+    /**
+     * Method returns user by login and pass from database.
+     * @param login String.
+     * @param pass String.
+     * @return user from database, or null.
+     */
     @Override
     public synchronized User getUserByLoginAndPass(String login, String pass) {
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
@@ -72,18 +86,34 @@ public class UserMySqlDAOImpl implements UserDAO {
         return user;
     }
 
+
+    /**
+     * Method returns all drivers from database.
+     * @return list drivers, List<User>.
+     */
     @Override
     public synchronized List<User> getAllDrivers() {
         String sql = "SELECT * FROM USERS WHERE TYPE = \'DRIVER\'";
         return getUsersByQuery(sql);
     }
 
+
+    /**
+     * Method returns list of all free (not busy) drivers from database.
+     * @return list drivers, List<User>.
+     */
     @Override
     public synchronized List<User> getFreeDrivers() {
         String sql = "SELECT * FROM USERS WHERE BUS_ID = 0 AND TYPE = \'DRIVER\'";
         return getUsersByQuery(sql);
     }
 
+
+    /**
+     * Method returns driver related to bus from database.
+     * @param bus
+     * @return driver.
+     */
     @Override
     public synchronized User getDriverByBusId(Bus bus) {
         if (bus == null) {
@@ -110,7 +140,6 @@ public class UserMySqlDAOImpl implements UserDAO {
                     user.setType(UserType.valueOf(resultSet.getString(TYPE)));
                     user.setStatus(Status.valueOf(resultSet.getString(STATUS)));
                 }
-
             }
 
         } catch (SQLException e) {
@@ -120,6 +149,12 @@ public class UserMySqlDAOImpl implements UserDAO {
         return user;
     }
 
+
+    /**
+     * Method returns user by ID from database.
+     * @param id int.
+     * @return user.
+     */
     @Override
     public User getUserById(int id) {
         if (id == 0) {
@@ -146,7 +181,6 @@ public class UserMySqlDAOImpl implements UserDAO {
                     user.setType(UserType.valueOf(resultSet.getString(TYPE)));
                     user.setStatus(Status.valueOf(resultSet.getString(STATUS)));
                 }
-
             }
 
         } catch (SQLException e) {
@@ -156,6 +190,13 @@ public class UserMySqlDAOImpl implements UserDAO {
         return user;
     }
 
+
+    /**
+     * Method update driver relation to the bus in database.
+     * @param userId int.
+     * @param busId int.
+     * @return true, if operation successfully done.
+     */
     @Override
     public synchronized boolean updateDriverBusId(int userId, int busId) {
         if (userId == 0) {
@@ -180,6 +221,13 @@ public class UserMySqlDAOImpl implements UserDAO {
         return rowUpdated;
     }
 
+
+    /**
+     * Method update driver status in database.
+     * @param user
+     * @param status
+     * @return true, if operation successfully done.
+     */
     @Override
     public synchronized boolean updateDriverStatus(User user, Status status) {
         if (user == null || status == null) {
@@ -204,6 +252,12 @@ public class UserMySqlDAOImpl implements UserDAO {
         return rowUpdated;
     }
 
+
+    /**
+     * Method to execute query and return list of users from database.
+     * @param sql String.
+     * @return list users, List<User>.
+     */
     private synchronized List<User> getUsersByQuery(String sql) {
         List<User> list = null;
 
@@ -220,6 +274,12 @@ public class UserMySqlDAOImpl implements UserDAO {
         return list;
     }
 
+
+    /**
+     * Method to get list of users from result set.
+     * @param resultSet
+     * @return list users, List<User>.
+     */
     private synchronized List<User> getUsersFromResultSet(ResultSet resultSet) {
         List<User> list = new ArrayList<>();
 
@@ -238,7 +298,7 @@ public class UserMySqlDAOImpl implements UserDAO {
                 list.add(user);
             }
         } catch (SQLException e) {
-            LOGGER.error("ERROR: trying to take users from ResultSet", e);
+            LOGGER.error("ERROR: trying to take list of users from ResultSet", e);
         }
 
         if (list.isEmpty()) {
@@ -248,20 +308,3 @@ public class UserMySqlDAOImpl implements UserDAO {
         return list;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

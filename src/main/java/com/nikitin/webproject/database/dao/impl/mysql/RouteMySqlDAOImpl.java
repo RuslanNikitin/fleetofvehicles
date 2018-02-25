@@ -15,14 +15,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Route Data Access Object implementation for MySQL database.
+ */
 public class RouteMySqlDAOImpl implements RouteDAO {
     private static final Logger LOGGER = Logger.getLogger(RouteMySqlDAOImpl.class);
 
-    // sequence of columns in DB:
+    /**
+     * Sequence of columns in database table:
+     */
     private static final int ID = 1;
     private static final int NUMBER = 2;
 
-    // Bill Pugh Singleton Implementation ---start---
+
+    /**
+     * Bill Pugh Singleton Implementation.
+     */
     private RouteMySqlDAOImpl() {}
 
     private static class SingletonHelper{
@@ -32,8 +40,12 @@ public class RouteMySqlDAOImpl implements RouteDAO {
     public static RouteMySqlDAOImpl getInstance(){
         return SingletonHelper.INSTANCE;
     }
-    // Bill Pugh Singleton Implementation ---end---
 
+
+    /**
+     * Method returns list of all routes from database.
+     * @return list routes, List<Route>.
+     */
     @Override
     public synchronized List<Route> AllRoutes() {
         List<Route> list = new ArrayList<>();
@@ -65,6 +77,12 @@ public class RouteMySqlDAOImpl implements RouteDAO {
         return list;
     }
 
+
+    /**
+     * Method returns route by ID from database.
+     * @param id int.
+     * @return route.
+     */
     @Override
     public synchronized Route getRouteById(int id) {
         String sql = "SELECT * FROM ROUTES WHERE ID = ?";
@@ -86,6 +104,12 @@ public class RouteMySqlDAOImpl implements RouteDAO {
         return route;
     }
 
+
+    /**
+     * Method to get route from result set.
+     * @param resultSet
+     * @return route.
+     */
     private synchronized Route getRouteFromResultSet(ResultSet resultSet) {
         Route route = null;
 

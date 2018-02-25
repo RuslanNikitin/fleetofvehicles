@@ -5,6 +5,9 @@ import com.nikitin.webproject.database.util.Status;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Bus Entity. This class completely describes table in database.
+ */
 public class Bus implements Serializable {
     private int id;
     private int routeId;
@@ -13,6 +16,10 @@ public class Bus implements Serializable {
     public Bus() {
     }
 
+
+    /**
+     * Builder design pattern implementation.
+     */
     private Bus(Builder builder) {
         this.id = builder.id;
         this.routeId = builder.routeId;
@@ -44,6 +51,10 @@ public class Bus implements Serializable {
         }
     }
 
+
+    /**
+     * Getters and Setters.
+     */
     public int getId() {
         return id;
     }
@@ -68,6 +79,10 @@ public class Bus implements Serializable {
         this.status = status;
     }
 
+
+    /**
+     * equals, hashCode and toString.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

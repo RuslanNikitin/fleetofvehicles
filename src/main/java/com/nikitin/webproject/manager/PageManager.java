@@ -2,6 +2,9 @@ package com.nikitin.webproject.manager;
 
 import java.util.ResourceBundle;
 
+/**
+ * Page Manager, to keep data of available pages.
+ */
 public class PageManager {
     private static PageManager instance;
     private ResourceBundle resourceBundle;
@@ -17,6 +20,12 @@ public class PageManager {
     public static final String CLIENT_PAGE = "CLIENT_PAGE";
     public static final String ADD_BUS_PAGE = "ADD_BUS_PAGE";
 
+    private PageManager(){}
+
+    /**
+     * Singleton implementation.
+     * @return instance of current class.
+     */
     public static PageManager getInstance(){
         if (instance == null){
             instance = new PageManager();
@@ -25,6 +34,11 @@ public class PageManager {
         return instance;
     }
 
+    /**
+     * Method returns page address from ResourceBundle by specified key.
+     * @param key String.
+     * @return page String.
+     */
     public String getProperty(String key){
         return (String) resourceBundle.getObject(key);
     }

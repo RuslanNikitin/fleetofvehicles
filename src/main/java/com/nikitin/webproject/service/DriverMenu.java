@@ -5,12 +5,19 @@ import com.nikitin.webproject.database.entity.BusContent;
 import com.nikitin.webproject.database.entity.Route;
 import com.nikitin.webproject.database.entity.User;
 
+/**
+ * Driver Menu. Collect data from database to display it on "drivers.jsp" page.
+ */
 public class DriverMenu {
     private Bus bus;
     private BusContent busContent;
     private Route route;
     private User driver;
 
+
+    /**
+     * Getters and Setters.
+     */
     public Bus getBus() {
         return bus;
     }

@@ -12,10 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Bus Content Data Access Object implementation for MySQL database.
+ */
 public class BusContentMySqlDAOImpl implements BusContentDAO {
     private static final Logger LOGGER = Logger.getLogger(BusContentMySqlDAOImpl.class);
 
-    // sequence of columns in DB:
+    /**
+     * Sequence of columns in database table:
+     */
     private static final int ID = 1;
     private static final int BUS_ID = 2;
     private static final int LANG_ID = 3;
@@ -24,7 +29,10 @@ public class BusContentMySqlDAOImpl implements BusContentDAO {
     private static final int MODEL = 6;
     private static final int COLOR = 7;
 
-    // Bill Pugh Singleton Implementation ---start---
+
+    /**
+     * Bill Pugh Singleton Implementation.
+     */
     private BusContentMySqlDAOImpl() {}
 
     private static class SingletonHelper{
@@ -34,8 +42,14 @@ public class BusContentMySqlDAOImpl implements BusContentDAO {
     public static BusContentMySqlDAOImpl getInstance(){
         return SingletonHelper.INSTANCE;
     }
-    // Bill Pugh Singleton Implementation ---end---
 
+
+    /**
+     * Method to get bus content by bus and language from database.
+     * @param bus
+     * @param language
+     * @return bus content.
+     */
     @Override
     public synchronized BusContent getBusContent(Bus bus, Language language) {
         if(bus == null || language == null) {
@@ -72,6 +86,14 @@ public class BusContentMySqlDAOImpl implements BusContentDAO {
         return busContent;
     }
 
+
+    /**
+     * Method to add new bus content to database.
+     * @param busContent
+     * @param busID
+     * @param lang
+     * @return true, if operation successfully done.
+     */
     @Override
     public boolean addBusContent(BusContent busContent, int busID, String lang) {
         if (busContent == null || busID == 0 || lang == null || lang.isEmpty()) {

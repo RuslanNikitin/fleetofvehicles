@@ -3,6 +3,9 @@ package com.nikitin.webproject.database.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Route Entity. This class completely describes table in database.
+ */
 public class Route implements Serializable {
     private int id;
     private String number;
@@ -10,6 +13,10 @@ public class Route implements Serializable {
     public Route() {
     }
 
+
+    /**
+     * Builder design pattern implementation.
+     */
     private Route(Builder builder) {
         this.id = builder.id;
         this.number = builder.number;
@@ -34,6 +41,10 @@ public class Route implements Serializable {
         }
     }
 
+
+    /**
+     * Getters and Setters.
+     */
     public int getId() {
         return id;
     }
@@ -50,6 +61,10 @@ public class Route implements Serializable {
         this.number = number;
     }
 
+
+    /**
+     * equals, hashCode and toString.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

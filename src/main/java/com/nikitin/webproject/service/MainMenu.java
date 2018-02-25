@@ -2,11 +2,18 @@ package com.nikitin.webproject.service;
 
 import com.nikitin.webproject.database.entity.Route;
 
+/**
+ * Main Menu. Collect data from database to display it on "main.jsp" page.
+ */
 public class MainMenu {
     private Route route;
     private int inWork;
     private int awaiting;
 
+
+    /**
+     * Getters and Setters.
+     */
     public Route getRoute() {
         return route;
     }

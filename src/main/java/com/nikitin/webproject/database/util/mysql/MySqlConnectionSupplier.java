@@ -9,6 +9,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Connection pool for MySQL database.
+ */
 public class MySqlConnectionSupplier {
     private static final Logger LOGGER = Logger.getLogger(MySqlConnectionSupplier.class);
 
@@ -20,7 +23,7 @@ public class MySqlConnectionSupplier {
             Context context = new InitialContext();
             dataSource = (DataSource) context.lookup(JNDI_LOOKUP_SERVICE);
         } catch (NamingException e) {
-            LOGGER.error("message", e);
+            LOGGER.error("ERROR: trying to read data from context.xml", e);
         }
     }
 
@@ -30,7 +33,7 @@ public class MySqlConnectionSupplier {
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
-            LOGGER.error("message", e);
+            LOGGER.error("ERROR: trying to establish a connection"  , e);
         }
 
         return connection;

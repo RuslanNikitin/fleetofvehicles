@@ -10,14 +10,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Language Data Access Object implementation for MySQL database.
+ */
 public class LanguageMySqlDAOImpl implements LanguageDAO {
     private static final Logger LOGGER = Logger.getLogger(LanguageMySqlDAOImpl.class);
 
-    // sequence of columns in DB:
+    /**
+     * Sequence of columns in database table:
+     */
     private static final int ID = 1;
     private static final int CODE = 2;
 
-    // Bill Pugh Singleton Implementation ---start---
+
+    /**
+     * Bill Pugh Singleton Implementation.
+     */
     private LanguageMySqlDAOImpl() {}
 
     private static class SingletonHelper{
@@ -27,8 +36,13 @@ public class LanguageMySqlDAOImpl implements LanguageDAO {
     public static LanguageMySqlDAOImpl getInstance(){
         return SingletonHelper.INSTANCE;
     }
-    // Bill Pugh Singleton Implementation ---end---
 
+
+    /**
+     * Method returns language by code from database.
+     * @param code String.
+     * @return language.
+     */
     @Override
     public synchronized Language getLanguage(String code) {
         if(code == null || code.isEmpty()) {

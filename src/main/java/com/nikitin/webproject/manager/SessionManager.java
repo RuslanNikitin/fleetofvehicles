@@ -2,6 +2,9 @@ package com.nikitin.webproject.manager;
 
 import java.util.ResourceBundle;
 
+/**
+ * Session Manager, to keep data of available keys, used to manage data in session.
+ */
 public class SessionManager {
     private static SessionManager instance;
     private ResourceBundle resourceBundle;
@@ -42,6 +45,12 @@ public class SessionManager {
     public static final String CURRENT_PAGE = "CURRENT_PAGE";
     public static final String ROUTE_ID = "ROUTE_ID";
 
+    private SessionManager() {}
+
+    /**
+     * Singleton implementation.
+     * @return instance of current class.
+     */
     public static SessionManager getInstance(){
         if (instance == null){
             instance = new SessionManager();
@@ -50,6 +59,11 @@ public class SessionManager {
         return instance;
     }
 
+    /**
+     * Method returns data from ResourceBundle by specified key.
+     * @param key String.
+     * @return data String.
+     */
     public String getProperty(String key){
         return (String) resourceBundle.getObject(key);
     }

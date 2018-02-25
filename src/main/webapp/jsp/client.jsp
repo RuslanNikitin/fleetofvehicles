@@ -51,7 +51,7 @@
                             <c:out value="${route}"/>
                         </td>
                         <td>
-                            <c:out value="${user.status}"/>
+                            <c:out value="${fn:toLowerCase(user.status)}"/>
                         </td>
                         <td>
                             <c:if test="${fn:toLowerCase(user.status).equals(\"awaiting\") && route != null && busContent != null}">

@@ -3,6 +3,9 @@ package com.nikitin.webproject.database.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Bus Content Entity. This class completely describes table in database.
+ */
 public class BusContent implements Serializable {
     private int id;
     private int busId;
@@ -15,6 +18,10 @@ public class BusContent implements Serializable {
     public BusContent() {
     }
 
+
+    /**
+     * Builder design pattern implementation.
+     */
     private BusContent(Builder builder) {
         this.id = builder.id;
         this.busId = builder.busId;
@@ -74,6 +81,10 @@ public class BusContent implements Serializable {
         }
     }
 
+
+    /**
+     * Getters and Setters.
+     */
     public int getId() {
         return id;
     }
@@ -130,6 +141,10 @@ public class BusContent implements Serializable {
         this.color = color;
     }
 
+
+    /**
+     * equals, hashCode and toString.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
