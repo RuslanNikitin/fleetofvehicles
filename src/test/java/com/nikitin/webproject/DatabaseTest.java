@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
  *  Connects to the actual db (fleet_of_vehicles_db).
  */
 public class DatabaseTest {
-    private String URL = "jdbc:mysql://localhost:3306/fleet_of_vehicles_db";
+    private String URL = "jdbc:mysql://localhost:3306/fleet_of_vehicles_db?useSSL=false";
     private String USERNAME = "root";
     private String PASSWORD = "root";
     private String DRIVER = "com.mysql.jdbc.Driver";
